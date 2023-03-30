@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
-npm test
+ echo " [Husky] pre-commit hook..."
+ yarn lint-staged
