@@ -1,3 +1,5 @@
-.husky
-.idea
-yarn.lock
+# Ignore everything:
+/*
+
+# Except src:
+!/src

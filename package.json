@@ -72,6 +72,6 @@
     "testEnvironment": "node"
   },
   "lint-staged": {
-    "*": "prettier --write"
+    "*.ts": "prettier --write src/**/*.ts"
   }
 }
