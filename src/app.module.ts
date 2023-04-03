@@ -6,11 +6,15 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      // envFilePath: ['.env']
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
-        type: config.get<'aurora-postgres'>('TYPEORM_CONNECTION'),
+        type: config.get<any>('TYPEORM_CONNECTION'),
+        host: config.get<string>('TYPEORM_HOST'),
         username: config.get<string>('TYPEORM_USERNAME'),
         password: config.get<string>('TYPEORM_PASSWORD'),
         database: config.get<string>('TYPEORM_DATABASE'),
@@ -27,3 +31,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
   providers: [AppService],
 })
 export class AppModule {}
+
+// TODO локально сервер подключается к базе данных в контейнере докера
+// TODO в сбилженом контейнере конфиг андефайнд
+// TODO может стоит попробовать запустить сразу оба контейнера в docker-compose

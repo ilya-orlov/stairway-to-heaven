@@ -1,3 +1,7 @@
 /node_modules
 /.idea
 /.husky
+/dist
+Dockerfile
+.dockerignore
+npm-dubug.log

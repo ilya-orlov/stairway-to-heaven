@@ -1,15 +1,42 @@
 # syntax=docker/dockerfile:1
 
-FROM node:18-alpine
+# BUILD FOR LOCAL DEVELOPMENT
+FROM node:18-alpine As development
 
-ENV NODE_ENV=production
+WORKDIR /usr/src/app
 
-WORKDIR /app
+COPY package.json .
+COPY yarn.lock .
 
-COPY ["package.json", "yarn-lock.json*", "./"]
+RUN yarn install --frozen-lockfile # investigate what --frozen-lockfile really does (analog is npm ci
 
-RUN yarn install --production
+COPY . .
 
-COPY api .
 
-CMD ["yarn", "start:prod"]
+# BUILD FOR PRODUCTION
+FROM node:18-alpine As build
+
+WORKDIR /usr/src/app
+
+COPY package.json .
+COPY yarn.lock .
+
+COPY  --from=development /usr/src/app/node_modules ./node_modules
+
+COPY . .
+
+RUN yarn run build
+
+ENV NODE_ENV production
+
+RUN yarn install --frozen-lockfile --only=production && npm cache clean --force
+
+
+# PRODUCTION
+FROM node:18-alpine As production
+
+COPY --from=build /usr/src/app/node_modules ./node_modules
+COPY --from=build /usr/src/app/dist ./dist
+
+CMD [ "node", "dist/main.js" ]
+
