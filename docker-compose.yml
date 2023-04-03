@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   db:
-    container_name: postgres-sth
+    container_name: postgres-db-sth
     image: postgres:15-alpine
     restart: always
     environment:
@@ -13,3 +13,7 @@ services:
       - ./pgdata:/var/lib/postgresql/data
     ports:
       - ${TYPEORM_PORT}:${TYPEORM_PORT}
+
+  server:
+    container_name: api-sth
+    build:

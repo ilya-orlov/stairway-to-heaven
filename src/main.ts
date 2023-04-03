@@ -7,7 +7,7 @@ async function bootstrap() {
   const config = await app.get(ConfigService)
   const port = config.get('API_PORT')
 
-  await app.listen(port, () => {
+  await app.listen(port || 3000, () => {
     console.log(`STH server is listening on ${port} port...`)
   })
 }
