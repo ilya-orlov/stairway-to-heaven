@@ -20,7 +20,8 @@ services:
     depends_on:
       - db
     restart: unless-stopped
-    #    network_mode: host investigate: what this option does. It brakes things and causes error 'can't find db while connection to db
+    #    network_mode: host
+    # investigate: what this option does. It brakes things and causes error 'can't find db while connection to db
     environment:
       - API_PORT=${API_PORT}
       - API_HOST=${API_HOST}

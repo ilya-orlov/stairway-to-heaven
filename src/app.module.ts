@@ -31,7 +31,3 @@ import { TypeOrmModule } from '@nestjs/typeorm'
   providers: [AppService],
 })
 export class AppModule {}
-
-// TODO локально сервер подключается к базе данных в контейнере докера
-// TODO в сбилженом контейнере конфиг андефайнд
-// TODO может стоит попробовать запустить сразу оба контейнера в docker-compose
