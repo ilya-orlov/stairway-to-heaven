@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sth-api
+spec:
+  selector:
+    matchLabels:
+      app: sth-api
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: sth-api
+    spec:
+      containers:
+        - name: sth-api
+          image: eaglecanfly/sth-api
+          ports:
+            - containerPort: 3001
