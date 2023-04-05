@@ -13,12 +13,12 @@ import { TypeOrmModule } from '@nestjs/typeorm'
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
-        type: config.get<any>('TYPEORM_CONNECTION'),
-        host: config.get<string>('TYPEORM_HOST'),
-        username: config.get<string>('TYPEORM_USERNAME'),
-        password: config.get<string>('TYPEORM_PASSWORD'),
-        database: config.get<string>('TYPEORM_DATABASE'),
-        port: config.get<number>('TYPEORM_PORT'),
+        type: config.get<any>('TYPEORM_CONNECTION', 'postgres'),
+        host: config.get<string>('TYPEORM_HOST', 'localhost'),
+        username: config.get<string>('TYPEORM_USERNAME', 'admin'),
+        password: config.get<string>('TYPEORM_PASSWORD', 'admin'),
+        database: config.get<string>('TYPEORM_DATABASE', 'sth-db'),
+        port: config.get<number>('TYPEORM_PORT', 5432),
         entities: [__dirname + 'dist/**/*.entity{.ts,.js}'],
         synchronize: true,
         autoLoadEntities: true,
